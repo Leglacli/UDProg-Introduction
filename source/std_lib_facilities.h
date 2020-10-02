@@ -72,7 +72,7 @@ template< class T> struct Vector : public std::vector<T> {
 
 /* #ifdef _MSC_VER
 	// microsoft doesn't yet support C++11 inheriting constructors
-	Vector() { }
+	Vector() { } 
 	explicit Vector(size_type n) :std::vector<T>(n) {}
 	Vector(size_type n, const T& v) :std::vector<T>(n, v) {}
 	template <class I>
