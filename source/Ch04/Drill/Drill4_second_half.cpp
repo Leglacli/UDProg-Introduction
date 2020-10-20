@@ -8,7 +8,15 @@ const double ft_to_m = 0.3048;
 bool acceptedUnit(string unit);
 double convertToMeter(double num, string unit);
 
+void convert();
+
 int main()
+{
+	convert();
+	return 0;
+}
+
+void convert()
 {
 	double num;
 	double smallest = 0;
@@ -33,14 +41,14 @@ int main()
 				largest = numInMeter;
 				cout << num << unit << " (" << numInMeter << "m) is the smallest and largest number so far!\n";
 			}
-			else if (num < smallest)
+			else if (num <= smallest)
 			{
-				smallest = numInMeter;
+				smallest = num;
 				cout << smallest << unit << " (" << numInMeter << "m) is the smallest so far!\n";
 			}
 			else if (num >= largest)
 			{
-				largest = numInMeter;
+				largest = num;
 				cout << largest << unit << " (" << numInMeter << "m) is the largest so far!\n";
 			}
 
@@ -66,6 +74,7 @@ bool acceptedUnit(string unit)
 {
 	bool isAccepted = false;
 
+	//Checking if unit is in the accepted units
 	for (string acceptedUnit : units)
 		if (acceptedUnit == unit)
 			isAccepted = true;
@@ -73,6 +82,7 @@ bool acceptedUnit(string unit)
 	return isAccepted;
 }
 
+//Converting to meter
 double convertToMeter(double num, string unit)
 {
 	double numInMeter = 0;
