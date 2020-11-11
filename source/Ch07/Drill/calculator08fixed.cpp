@@ -15,7 +15,7 @@ public:
 
 class Token_stream {
 public:
-	Token_stream():full{ false }, buffer{ 0 } { } // tokens from putback come here
+	Token_stream() :full{ false }, buffer{ 0 } { } // tokens from putback come here
 	Token get(); // this is how we get the next token
 	void putback(Token t) { buffer = t; full = true; } // puts back a token into the stream
 	void ignore(char c); //ingores a char
@@ -61,7 +61,7 @@ Token Token_stream::get()
 	case '.':
 	case '0': case '1': case '2': case '3': case '4':
 	case '5': case '6': case '7': case '8': case '9':
-	{	
+	{
 		cin.putback(ch);
 		double val;
 		cin >> val;
@@ -175,28 +175,28 @@ double pow_or_square(char c)
 
 double primary() // handles parantheses, positive and negative numbers, variables, sqrt() and pow()
 {
-		Token t = ts.get();
-		switch (t.kind) {
-		case '(':
-		{	double d = expression();
-			t = ts.get();
-			if (t.kind != ')') error("')' expected");
-			return d;
-		}
-		case '-':   // negative number
-			return -primary();
-		case '+':   // positive number
-			return primary();
-		case number:
-			return t.value;
-		case name:  // get a variables value
-			return get_value(t.name);
-		case sqrtch:
-		case powch:
-			return pow_or_square(t.kind); //the function decides which one to do, if it's 's' it does sqrt(), if it's 'p' it does pow()
-		default:
-			error("primary expected");
-		}
+	Token t = ts.get();
+	switch (t.kind) {
+	case '(':
+	{	double d = expression();
+	t = ts.get();
+	if (t.kind != ')') error("')' expected");
+	return d;
+	}
+	case '-':   // negative number
+		return -primary();
+	case '+':   // positive number
+		return primary();
+	case number:
+		return t.value;
+	case name:  // get a variables value
+		return get_value(t.name);
+	case sqrtch:
+	case powch:
+		return pow_or_square(t.kind); //the function decides which one to do, if it's 's' it does sqrt(), if it's 'p' it does pow()
+	default:
+		error("primary expected");
+	}
 }
 
 double term() //handles '*', '/' and '%'
@@ -210,15 +210,15 @@ double term() //handles '*', '/' and '%'
 			break;
 		case '/':
 		{	double d = primary();
-			if (d == 0) error("division by zero");
-			left /= d;
-			break;
+		if (d == 0) error("division by zero");
+		left /= d;
+		break;
 		}
 		case '%':
 		{   double d = primary();
-			if (d == 0) error("division by zero");
-			left = fmod(left, d);
-			break;
+		if (d == 0) error("division by zero");
+		left = fmod(left, d);
+		break;
 		}
 		default:
 			ts.putback(t);
@@ -301,6 +301,10 @@ void calculate()
 int main()
 try {
 	// Predefined variables
+	cout << "---> Welcome, this is a simple calculator <---" << endl;
+	cout << "---> You can use '+' , '-' , '*' , '/' , '%'(mod), sqrt(x) and pow(x,y), y must be int! <---" << endl;
+	cout << "---> To print the result type ';' and to quit the program type 'exit' <---" << endl;
+
 	variables.push_back(Variable{ "k", 1000 });
 
 	calculate();
