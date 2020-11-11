@@ -21,15 +21,49 @@ double min(double num1, double num2);
 double max(double num1, double num2);
 bool almost_equal(double num1, double num2);
 
+void compare();
+
 int main()
+{
+	compare();
+	return 0;
+}
+
+//Deciding the smaller number
+double min(double num1, double num2)
+{
+	if (num1 < num2)
+		return num1;
+	else
+		return num2;
+}
+
+//Deciding the larger number
+double max(double num1, double num2)
+{
+	if (num1 >= num2)
+		return num1;
+	else
+		return num2;
+}
+
+//Checking if almost equal
+bool almost_equal(double num1, double num2)
+{
+	if (max(num1, num2) - min(num1, num2) < difference)
+		return true;
+	else
+		return false;
+}
+
+void compare()
 {
 	double num1, num2;
 	cout << "Type in 2 numbers (to stop type '|' )\n";
-	cout << "Type in a number (to stop type '|' )\n";
 
 	while (cin >> num1 >> num2)
 	{
-		//cout << "Your numbers are: " << num1 << " and " << num2 << endl;
+		cout << "Your numbers are: " << num1 << " and " << num2 << endl;
 		if (num1 == num2)
 			cout << num1 << " and " << num2 << " are equal!\n";
 		else
@@ -40,29 +74,4 @@ int main()
 				cout << num1 << " and " << num2 << " are almost equal!\n";
 		}
 	}
-
-}
-
-double min(double num1, double num2)
-{
-	if (num1 < num2)
-		return num1;
-	else
-		return num2;
-}
-
-double max(double num1, double num2)
-{
-	if (num1 >= num2)
-		return num1;
-	else
-		return num2;
-}
-
-bool almost_equal(double num1, double num2)
-{
-	if (max(num1, num2) - min(num1, num2) < difference)
-		return true;
-	else
-		return false;
 }
