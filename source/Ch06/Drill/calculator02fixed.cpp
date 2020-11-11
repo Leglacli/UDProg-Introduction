@@ -16,8 +16,6 @@
 #include "std_lib_facilities.h"
 
 
-//------------------------------------------------------------------------------
-
 double expression();    // declaration so that primary() can call expression()
 
 class Token
@@ -25,13 +23,11 @@ class Token
 public:
 	char kind;        // what kind of token
 	double value;     // for numbers: a value 
-	Token(char ch):kind(ch), value(0) { }
-	Token(char ch, double val):kind(ch), value(val) { }
+	Token(char ch) :kind(ch), value(0) { }
+	Token(char ch, double val) :kind(ch), value(val) { }
 };
 
-//------------------------------------------------------------------------------
-
-class Token_stream 
+class Token_stream
 {
 public:
 	Token_stream();   // make a Token_stream that reads from cin
@@ -42,14 +38,10 @@ private:
 	Token buffer;     // here is where we keep a Token put back using putback()
 };
 
-//------------------------------------------------------------------------------
-
 // The constructor just sets full to indicate that the buffer is empty:
-Token_stream::Token_stream():full(false), buffer(0)    // no Token in buffer
+Token_stream::Token_stream() :full(false), buffer(0)    // no Token in buffer
 {
 }
-
-//------------------------------------------------------------------------------
 
 // The putback() member function puts its argument back into the Token_stream's buffer:
 void Token_stream::putback(Token t)
@@ -58,8 +50,6 @@ void Token_stream::putback(Token t)
 	buffer = t;       // copy t to buffer
 	full = true;      // buffer is now full
 }
-
-//------------------------------------------------------------------------------
 
 Token Token_stream::get()
 {
@@ -75,7 +65,7 @@ Token Token_stream::get()
 	switch (ch) {
 	case '=':    // for "print"
 	case 'x':    // for "quit"
-	case '(': case ')': case '+': case '-': case '*': case '/': case '%' : case '^' :
+	case '(': case ')': case '+': case '-': case '*': case '/': case '%': case '^':
 		return Token(ch);        // let each character represent itself
 	case '.':
 	case '0': case '1': case '2': case '3': case '4':
@@ -91,12 +81,8 @@ Token Token_stream::get()
 	}
 }
 
-//------------------------------------------------------------------------------
-
 
 Token_stream ts;        // provides get() and putback() 
-
-//------------------------------------------------------------------------------
 
 // deal with numbers and parentheses
 double primary()
@@ -108,7 +94,7 @@ double primary()
 		double d = expression();
 		t = ts.get();
 		if (t.kind != ')') error("')' expected");
-			return d;
+		return d;
 	}
 	case '8':            // we use '8' to represent a number
 		return t.value;  // return the number's value
@@ -116,7 +102,6 @@ double primary()
 		error("primary expected");
 	}
 }
-//------------------------------------------------------------------------------
 // deal with *, /, % and ^
 double term()
 {
@@ -154,25 +139,24 @@ double term()
 		}
 	}
 }
-//------------------------------------------------------------------------------
 // deal with + and -
 double expression()
 {
-	double left = term();      // read and evaluate a Term
+	double left = term();    
 	Token t = ts.get();        // get the next token from token stream
 	while (true) {
 		switch (t.kind) {
 		case '+':
-			left += term();    // evaluate Term and add
+			left += term();  
 			t = ts.get();
 			break;
 		case '-':
-			left -= term();    // evaluate Term and subtract
+			left -= term();   
 			t = ts.get();
 			break;
 		default:
 			ts.putback(t);     // put t back into the token stream
-			return left;       // finally: no more + or -: return the answer
+			return left;
 		}
 	}
 }
@@ -185,12 +169,12 @@ try
 	cout << "---> To print the result type '=' and to quit the program type 'x' <---" << endl;
 
 	double val = 0;
-	 
+
 	while (cin) {
 		Token t = ts.get();
-		if (t.kind == 'x') 
-			break; // 'q' for quit
-		if (t.kind == '=')        // ';' for "print now"
+		if (t.kind == 'x')
+			break; // 'x' for quit
+		if (t.kind == '=')        // '=' for "print now"
 			cout << "=" << val << '\n';
 		else
 		{
@@ -210,4 +194,3 @@ catch (...) {
 	keep_window_open();
 	return 2;
 }
-//------------------------------------------------------------------------------
