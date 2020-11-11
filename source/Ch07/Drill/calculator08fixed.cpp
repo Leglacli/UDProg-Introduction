@@ -300,11 +300,11 @@ void calculate()
 
 int main()
 try {
-	// Predefined variables
 	cout << "---> Welcome, this is a simple calculator <---" << endl;
 	cout << "---> You can use '+' , '-' , '*' , '/' , '%'(mod), sqrt(x) and pow(x,y), y must be int! <---" << endl;
 	cout << "---> To print the result type ';' and to quit the program type 'exit' <---" << endl;
 
+	// Predefined variable
 	variables.push_back(Variable{ "k", 1000 });
 
 	calculate();
